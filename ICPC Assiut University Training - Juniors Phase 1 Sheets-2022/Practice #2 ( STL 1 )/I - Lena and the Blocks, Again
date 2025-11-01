@@ -1,0 +1,59 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define int    long long
+#define vi     vector<int>
+#define pii    pair<int, int>
+#define all(v) v.begin(), v.end()
+#define dpp(arr,val) memset(arr,val,sizeof(arr))
+template<typename T> ostream& operator<<(ostream& os, vector<T>& v){for (auto& i : v) os << i << ' ';return os;}
+template<typename T> istream& operator>>(istream& is, vector<T>& v){for (auto& i : v) is >> i;return is;}
+void FastIO(){ios_base::sync_with_stdio(false);cin.tie(nullptr);}
+void UseFile(){freopen("divsnums.in", "r", stdin);}
+const int mod = 1000000007;
+//const int sz = 1e5+10;
+const double PI = 3.14159265358979323846;
+
+void solve()
+{
+    int n; cin >> n;
+
+    vi vec(n); cin >> vec;
+
+    int mn = INT_MAX;
+    int mx = INT_MIN;
+    int ans = INT_MAX;
+
+    int lastmn = -1;
+    int lastmx = -1;
+
+    for (int i = 0; i < n; i++) {
+        mn = min(mn, vec[i]);
+        mx = max(mx, vec[i]);
+    }
+
+    for(int i=0;i<n;i++) {
+        if(vec[i]==mn){
+            lastmn=i;
+        }
+        if(vec[i]==mx){
+            lastmx=i;
+        }
+
+        if(lastmn==-1 || lastmx==-1){
+            continue;
+        }
+
+        ans=min(abs(lastmn-lastmx),ans);
+    }
+
+    cout << ans;
+}
+int32_t main(){
+
+    FastIO();
+    //UseFile();
+    solve();
+    return 0;
+}
