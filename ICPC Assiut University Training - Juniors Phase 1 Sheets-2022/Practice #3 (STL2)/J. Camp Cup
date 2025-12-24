@@ -1,0 +1,61 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define int    long long
+#define vi     vector<int>
+#define pii    pair<int, int>
+#define all(v) v.begin(), v.end()
+#define dpp(arr,val) memset(arr,val,sizeof(arr))
+template<typename T> ostream& operator<<(ostream& os, vector<T>& v){for (auto& i : v) os << i << ' ';return os;}
+template<typename T> istream& operator>>(istream& is, vector<T>& v){for (auto& i : v) is >> i;return is;}
+void FastIO(){ios_base::sync_with_stdio(false);cin.tie(nullptr);}
+void UseFile(){freopen("divsnums.in", "r", stdin);}
+const int mod = 1000000007;
+//const int sz = 1e5+10;
+const double PI = 3.14159265358979323846;
+
+bool cmp(pair<string,double> p1, pair<string,double> p2){
+    if(p1.second == p2.second) return p1.first < p2.first;
+    return p1.second > p2.second;
+}
+
+void solve()
+{
+    int n; cin >> n;
+
+    // precompute:
+    vi points;
+    points.push_back(1000);
+    for(int i = 1; i < 100; i++){
+        points.push_back(round(points[i-1]*0.9));
+    }
+
+    map<string,int> mp;
+
+    while(n--){
+        int m; cin >> m;
+
+        for(int i = 0; i < m; i++){
+            string s; cin >> s;
+            mp[s] += points[i];
+        }
+    }
+
+    vector<pair<string,int>> v(mp.begin(), mp.end());
+    sort(v.begin(), v.end(), cmp);
+
+    cout << v[0].first << endl;
+
+    for(int i = 0; i < v.size(); i++){
+        cout << v[i].first << " " << v[i].second << endl;
+    }
+}
+
+int32_t main(){
+
+    FastIO();
+    //UseFile();
+    solve();
+    return 0;
+}
