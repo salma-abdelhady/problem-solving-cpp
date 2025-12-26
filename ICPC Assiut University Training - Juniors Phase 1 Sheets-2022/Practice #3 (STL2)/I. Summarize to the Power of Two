@@ -1,0 +1,58 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define int    long long
+#define vi     vector<int>
+#define pii    pair<int, int>
+#define all(v) v.begin(), v.end()
+#define dpp(arr,val) memset(arr,val,sizeof(arr))
+template<typename T> ostream& operator<<(ostream& os, vector<T>& v){for (auto& i : v) os << i << ' ';return os;}
+template<typename T> istream& operator>>(istream& is, vector<T>& v){for (auto& i : v) is >> i;return is;}
+void FastIO(){ios_base::sync_with_stdio(false);cin.tie(nullptr);}
+void UseFile(){freopen("divsnums.in", "r", stdin);}
+const int mod = 1000000007;
+//const int sz = 1e5+10;
+const double PI = 3.14159265358979323846;
+
+void solve()
+{
+    int n; cin >> n;
+
+    vi v(n); cin >> v;
+
+    unordered_map<int,int>mp;
+    for(int i = 0; i < n; i++){
+        mp[v[i]]++;
+    }
+
+    vi powers(34);
+
+    for(int i = 0; i < 34; i++){
+        powers[i] = (int)1<<i;
+    }
+
+    int cnt = 0;
+
+    for(int i = 0; i < n; i++){
+        int good = 0;
+        mp[v[i]]--;
+        for(int j = 0; j < 34; j++){
+            int b = powers[j] - v[i];
+            good += mp[b];
+        }
+        if(!good){
+            cnt++;
+        }
+        mp[v[i]]++;
+    }
+
+    cout << cnt << endl;
+}
+int32_t main(){
+
+    FastIO();
+    //UseFile();
+    solve();
+    return 0;
+}
