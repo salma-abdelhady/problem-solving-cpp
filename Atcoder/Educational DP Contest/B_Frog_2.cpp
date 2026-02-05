@@ -23,14 +23,15 @@ void solve(){
     vi dp(n, 1e9);
 
     dp[0] = 0;
+    dp[1] = abs(h[1] - h[0]);
 
-    for(int i = 0; i < n; i++){
-        for(int j = 1; j <= k; j++){
-            if(i + j >= n) break;
-            dp[i+j] = min(dp[i+j], dp[i] + abs(h[i] - h[i+j]));
+    for(int i = 1; i < n; i++){
+        for(int j = k; j >= 0; j++){
+            if(i - j < 0) break;
+            dp[i] = min(dp[i], dp[i-j] + abs(h[i] - h[i-j]));
         }
     }
-
+    
     cout << dp[n-1] << endl;
 }
 
