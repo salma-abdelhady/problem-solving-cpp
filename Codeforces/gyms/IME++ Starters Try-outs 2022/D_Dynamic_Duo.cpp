@@ -14,7 +14,7 @@ template<class T = int> struct BIT{
     int n;
     void init(int n){
         this->n = n;
-        tree.assign(n + 2, 0);
+        tree.assign(n, 0);
     }
     void add(int pos , T val){
         while(pos <= n){
@@ -38,7 +38,7 @@ void solve(){
     int n, q; cin >> n >> q;
 
     BIT<long long> pre;
-    pre.init(n);
+    pre.init(n + 2);
 
     while(q--){
         char c; cin >> c;

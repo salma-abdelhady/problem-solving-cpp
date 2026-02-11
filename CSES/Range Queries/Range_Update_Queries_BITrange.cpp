@@ -1,0 +1,90 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+void FastIO(){ios_base::sync_with_stdio(false);cin.tie(nullptr);}
+
+class BITrange {
+private:
+    vector<long long> m, c;
+    int n;
+
+    // Internal: Add mVal and cVal at position `pos`
+    // Time Complexity: O(log n)
+    void add(int pos, long long mVal, long long cVal) {
+        for (++pos; pos <= n; pos += (pos & -pos)) {
+            m[pos - 1] += mVal;
+            c[pos - 1] += cVal;
+        }
+    }
+
+    // Internal: Compute prefix sum up to position `pos`
+    // Time Complexity: O(log n)
+    long long get(int pos) {
+        long long ret = 0;
+        int x = pos;
+        for (++pos; pos; pos -= (pos & -pos)) {
+            ret += m[pos - 1] * x + c[pos - 1];
+        }
+        return ret;
+    }
+
+public:
+    // Initialize BIT with `n` elements
+    // Time Complexity: O(n)
+    void init(int n) {
+        this->n = n + 2; // to avoid boundary issues during updates
+        m.assign(this->n, 0);
+        c.assign(this->n, 0);
+    }
+
+    // Add `val` to the entire range [st, en]
+    // Time Complexity: O(log n)
+    void addRange(int st, int en, long long val) {
+        if (st > en) return;
+        add(st, val, -val * (st - 1));
+        add(en + 1, -val, val * en);
+    }
+
+    // Query sum in the range [l, r]
+    // Time Complexity: O(log n)
+    long long qry(int l, int r) {
+        return get(r) - get(l - 1);
+    }
+};
+
+void solve(){
+    int n, q; cin >> n >> q;
+    vector<long long> a(n);
+
+    BITrange pre;
+    pre.init(n + 1);
+
+    for(int i = 0; i < n; i++) cin >> a[i];
+
+    for (int i = 0; i < n; i++) {
+        pre.addRange(i, i, a[i]);
+    }
+
+    while(q--){
+        int op; cin >> op;
+        
+        if(op == 1){
+            long long a, b, u; cin >> a >> b >> u;
+            a--; b--;
+            pre.addRange(a, b, u);
+        }
+
+        else{
+            long long k; cin >> k;
+            k--;
+            long long val = pre.qry(k, k);
+            cout << val << endl;
+        }
+    }
+}
+
+int32_t main(){
+    FastIO();
+    solve();
+    return 0;
+}
