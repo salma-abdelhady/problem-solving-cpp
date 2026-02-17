@@ -2,18 +2,8 @@
 
 using namespace std;
 
-#define int    long long
-#define vi     vector<int>
-#define pii    pair<int, int>
-#define all(v) v.begin(), v.end()
-#define dpp(arr,val) memset(arr,val,sizeof(arr))
-template<typename T> ostream& operator<<(ostream& os, vector<T>& v){for (auto& i : v) os << i << ' ';return os;}
-template<typename T> istream& operator>>(istream& is, vector<T>& v){for (auto& i : v) is >> i;return is;}
 void FastIO(){ios_base::sync_with_stdio(false);cin.tie(nullptr);}
-void UseFile(){freopen("divsnums.in", "r", stdin);}
-const int MOD = 1000000007;
-const int sz = 2e5+10;
-const double PI = 3.14159265358979323846;
+
 
 /*
 1- Determine the state: 
@@ -30,9 +20,11 @@ dp[i][0] = 0
 
 void solve(){
     int n, x; cin >> n >> x;
-    vi h(n), s(n); cin >> h >> s;
+    vector<int> h(n), s(n);
+    for(int i = 0; i < n; i++) cin >> h[i];
+    for(int i = 0; i < n; i++) cin >> s[i];
 
-    vector<vi> dp(n+1, vi(x+1, 0));
+    vector<vector<int>> dp(n+1, vector<int>(x+1, 0));
 
     for(int i = 1; i <= n; i++){
         for(int j = 0; j <= x; j++){
